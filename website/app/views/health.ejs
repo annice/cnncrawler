@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Health</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/1-col-portfolio.css"  type="text/css" rel="stylesheet">
+
+    <!-- Temporary fix for navbar responsiveness -->
+    <style>
+    .navbar-toggler {
+        z-index: 1;
+    }
+    
+    @media (max-width: 576px) {
+        nav > .container {
+            width: 100%;
+        }
+    }
+    </style>
+<!-- jQuery Version 3.1.1 -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Tether -->
+    <script src="js/tether.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<script>
+
+init1("0","health0");
+init1("1","health1");
+init1("2","health2");
+init1("3","health3");
+function loadJSON(callback) {   
+
+    var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+    xobj.open('GET', "http://localhost:3000/profile", true); 
+	 
+    xobj.onreadystatechange = function () {
+	
+          if (xobj.readyState == 4 && xobj.status == "200") {
+		 
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+          }
+    };
+    xobj.send(null);  
+ }
+ 
+
+
+
+function loadJSON1(jsonf, callback) {   
+
+    var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+    xobj.open('GET', "http://localhost:3000/"+jsonf, true); 
+	 
+    xobj.onreadystatechange = function () {
+	
+          if (xobj.readyState == 4 && xobj.status == "200") {
+		 
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+          }
+    };
+    xobj.send(null);  
+ }
+ 
+ function init1(id,jsonf) {
+
+ loadJSON1(jsonf, function(response) {
+  // Parse JSON string into object
+    var actual_JSON = JSON.parse(response); 
+	
+	
+	document.getElementById('h3_'+id).innerHTML = actual_JSON.health[0].title;
+	document.getElementById('p_'+id).innerHTML = actual_JSON.health[0].content.substr(0, 500)+"...";
+	document.getElementById('p_time_'+id).innerHTML = actual_JSON.health[0].release;
+	document.getElementById('p_author_'+id).innerHTML = actual_JSON.health[0].author;
+	document.getElementById('a_'+id).href = actual_JSON.health[0].link;
+	document.getElementById('img_'+id).src = "https:"+actual_JSON.health[0].main_img;
+ });
+}
+</script>
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarExample" aria-controls="navbarExample" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="container">
+            <a class="navbar-brand" href="/profile">News Aggregation Portal</a>
+            <div class="collapse navbar-collapse" id="navbarExample">
+                <ul class="navbar-nav ml-auto">
+
+                   <%if(user.preferences.politics) {%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/politics">Politics </a>
+                    </li>
+                        <%}%>
+
+                       <%if(user.preferences.travel) {%>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/travel">Travel</a>
+                    </li>
+                        <%}%>
+
+                     <%if(user.preferences.opinion) {%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/opinion">Opinion</a>
+                    </li>
+                    <%}%>
+
+                     <%if(user.preferences.health) {%>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/health">Health<span class="sr-only">(current)</span></a>
+                    </li>
+                    <%}%>
+
+                     <%if(user.preferences.faith) {%>
+					 <li class="nav-item">
+                        <a class="nav-link" href="/faith">BeatGoesOn</a>
+                    </li>
+                    <%}%>
+
+
+                    <%if(user.preferences.entertainment) {%>
+					<li class="nav-item">
+                        <a class="nav-link" href="/entertainment">Entertainment</a>
+                    </li>
+                      <%}%>
+					  
+					  <%if(user.preferences.sport) {%>
+					<li class="nav-item">
+                        <a class="nav-link" href="/sport">Sport</a>
+                    </li>
+                      <%}%>
+					  
+					      <%if(user.preferences.tech) {%>
+					<li class="nav-item">
+                        <a class="nav-link" href="/tech">Tech</a>
+                    </li>
+                      <%}%>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/edit_profile">Edit Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading -->
+        <h1 class="my-4">Health <small>Top Stories</small></h1>
+
+       <!-- Project One -->
+        <div class="row">
+            <div class="col-md-7">
+                <a href="#">
+                    <img  id="img_0" class="img-fluid rounded mb-3 mb-md-0"  alt="obama" width="700" height="700">
+                </a>
+            </div>
+           
+        </div>
+        <!-- /.row -->
+
+        <hr>
+<!-- Project One -->
+        <div class="row">
+           
+            <div class="col-md-7">
+                <h3 id="h3_0"></h3>
+				<h6><p id="p_time_0"></p></h6>
+				<h5><p id="p_author_0"></p></h5>
+                <p id="p_0"></p>
+                <a  id="a_0" target="blank">Read More</a>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+        <!-- Project Two -->
+        <div class="row">
+           
+            <div class="col-md-7">
+                <h3 id="h3_1"></h3>
+				<h6><p id="p_time_1"></p></h6>
+				<h5><p id="p_author_1"></p></h5>
+                <p id="p_1"></p>
+                <a  id="a_1" target="blank">Read More</a>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Project Three -->
+        <div class="row">
+          
+            <div class="col-md-7">
+                <h3 id="h3_2"></h3>
+				<h6><p id="p_time_2"></p></h6>
+				<h5><p id="p_author_2"></p></h5>
+                <p id="p_2" ></p>
+                <a  id="a_2" target="blank">Read More</a>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Project Four -->
+        <div class="row">
+
+          
+            <div class="col-md-7">
+                <h3 id ="h3_3"></h3>
+				<h6><p id="p_time_3"></p></h6>
+				<h5><p id="p_author_3"></p></h5>
+                <p id="p_3"></p>
+                <a  id="a_3" target="blank">Read More</a>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+       
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-inverse">
+        <div class="container">
+            <p class="m-0 text-center text-white">News Aggregation Portal</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+
+    
+
+</body>
+
+</html>

@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Edit Profile</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/1-col-portfolio.css" rel="stylesheet">
+
+    <!-- Temporary fix for navbar responsiveness -->
+    <style>
+    .navbar-toggler {
+        z-index: 1;
+    }
+    label{
+    	font-weight: bold;
+    }
+    .btn{
+    margin:15px
+    }
+    @media (max-width: 576px) {
+        nav > .container {
+            width: 100%;
+        }
+    }
+    </style>
+<!-- jQuery Version 3.1.1 -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Tether -->
+    <script src="js/tether.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+
+<!-- Navigation -->
+    <nav class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarExample" aria-controls="navbarExample" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="container">
+            <a class="navbar-brand" href="/profile">News Aggregation Portal</a>
+            <div class="collapse navbar-collapse" id="navbarExample">
+                <ul class="navbar-nav ml-auto">
+
+                   <%if(user.preferences.politics) {%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/politics">Politics </a>
+                    </li>
+                        <%}%>
+
+                       <%if(user.preferences.travel) {%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/travel">Travel</a>
+                    </li>
+                        <%}%>
+
+                     <%if(user.preferences.opinion) {%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/opinion">Opinion</a>
+                    </li>
+                    <%}%>
+
+                     <%if(user.preferences.health) {%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/health">Health</a>
+                    </li>
+                    <%}%>
+
+                     <%if(user.preferences.faith) {%>
+					 <li class="nav-item">
+                        <a class="nav-link" href="/faith">BeatGoesOn</a>
+                    </li>
+                    <%}%>
+
+
+                    <%if(user.preferences.entertainment) {%>
+					<li class="nav-item">
+                        <a class="nav-link" href="/entertainment">Entertainment</a>
+                    </li>
+                      <%}%>
+						
+						<%if(user.preferences.sport) {%>
+					<li class="nav-item">
+                        <a class="nav-link" href="/sport">Sport</a>
+                    </li>
+                      <%}%>
+					  
+					      <%if(user.preferences.tech) {%>
+					<li class="nav-item">
+                        <a class="nav-link" href="/tech">Tech</a>
+                    </li>
+                      <%}%>
+					  
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/edit_profile">Edit Profile<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+   
+   <!-- Page Content -->
+    <div class="container">
+
+    <!-- Page Heading -->
+    <h1 class="my-4">Edit Profile</h1><br>
+        <br>
+	<!-- show any messages that come back with authentication -->
+	<% if (message.length > 0) { %>
+		<div class="alert alert-danger"><%= message %></div>
+	<% } %>
+	<!-- Edit Profile FORM -->
+	<form action="/edit_profile" method="post">
+
+		<div class="form-group">
+			<label>First Name</label>
+			<input type="text" class="form-control" name="firstName" value =<%= user.first %>>
+		</div>
+
+		<div class="form-group">
+			<label>Last Name</label>
+			<input type="text" class="form-control" name="lastName" value =<%= user.last %>>
+		</div>
+		<div class="form-group">
+			<label>Email Address</label>
+			<input type="text" class="form-control" name="email" readonly="true" value= <%= user.email %>>
+		</div>
+		 <td><label for="preferences">News Preferences:</label></td>
+                             <td>
+							 <br /> 
+                            <%if(user.preferences.faith) {%>
+  							 <input type="checkbox" name="faith" checked="true"> Beat Goes On<br>
+                 <%} else{%>
+                  <input type="checkbox" name="faith" unchecked="true"> BeatGoesOn<br>
+                 <% } %>
+
+                       <%if(user.preferences.politics) {%>
+                 <input type="checkbox" name="politics" checked="true"> Politics<br>
+                 <%} else{%>
+                  <input type="checkbox" name="politics" unchecked="true"> Politics<br>
+                 <% } %>
+
+
+  							  <%if(user.preferences.opinion) {%>
+                 <input type="checkbox" name="opinion" checked="true"> Opinion<br>
+                 <%} else{%>
+                  <input type="checkbox" name="opinion" unchecked="true"> Opinion<br>
+                 <% } %>
+
+  							
+
+                  <%if(user.preferences.health) {%>
+                 <input type="checkbox" name="health" checked="true"> Health<br>
+                 <%} else{%>
+                  <input type="checkbox" name="health" unchecked="true"> Health<br>
+                 <% } %>
+
+
+
+                  <%if(user.preferences.entertainment) {%>
+                 <input type="checkbox" name="entertainment" checked="true"> Entertainment<br>
+                 <%} else{%>
+                  <input type="checkbox" name="entertainment" unchecked="true"> Entertainment<br>
+                 <% } %>
+
+                 <%if(user.preferences.travel) {%>
+                 <input type="checkbox" name="travel" checked="true"> Travel<br>
+                 <%} else{%>
+                  <input type="checkbox" name="travel" unchecked="true"> Travel<br>
+                 <% } %>
+				 
+				       <%if(user.preferences.sport) {%>
+                 <input type="checkbox" name="sport" checked="true"> Sports<br>
+                 <%} else{%>
+                  <input type="checkbox" name="sport" unchecked="true"> Sports<br>
+                 <% } %>
+
+                 <%if(user.preferences.tech) {%>
+                 <input type="checkbox" name="tech" checked="true"> Tech<br>
+                 <%} else{%>
+                  <input type="checkbox" name="tech" unchecked="true"> Tech<br>
+                 <% } %>
+  			
+  							
+							    <br /> 
+                            </td>
+                      	</tr>
+
+		<div class="form-group">
+			<label>Password</label>
+			<input type="password" class="form-control" name="password" value="P@ssw0rd123">
+		</div>
+		
+			<div class="form-group">
+			<label>Confirm Password</label>
+			<input type="password" class="form-control" name="conpassword" value="P@ssw0rd123">
+		</div>
+		
+		<div align="center">
+		<button type="save" class="btn btn-warning btn-lg">Save</button>
+      
+        </div>
+	</form>
+    </div>
+    <br>
+    <!-- Footer -->
+    <footer class="py-5 bg-inverse">
+        <div class="container">
+            <p class="m-0 text-center text-white">News Aggregation Portal</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+</body>
+</html>
